@@ -1,22 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\PortfolioCategory;
+use App\Http\Controllers\Controller;
 
 class PortfolioCategoryController extends Controller
 {
     // Menampilkan daftar kategori
     public function index()
     {
-        $categories = PortfolioCategory::all();
-        return view('portfolio_categories.index', compact('categories'));
+        // Mengambil kategori dengan pagination
+        $categories = PortfolioCategory::paginate(10);
+
+        // Ambil item pertama dengan mengakses array dari items()
+        $firstItem = $categories->items()[0] ?? null;  // Mengakses item pertama secara langsung
+
+        return view('admin.portfolio_categories.index', compact('categories', 'firstItem'));
     }
 
     public function create()
     {
-        return view('portfolio_categories.create');
+        return view('admin.portfolio_categories.create');
     }
 
     public function store(Request $request)
@@ -27,7 +33,7 @@ class PortfolioCategoryController extends Controller
         ]);
 
         PortfolioCategory::create($request->all());
-        return redirect()->route('portfolio_categories.index')->with('success', 'Category created successfully.');
+        return redirect()->route('admin.portfolio_categories.index')->with('success', 'Category created successfully.');
     }
 
     public function show($slug)
@@ -36,13 +42,13 @@ class PortfolioCategoryController extends Controller
         $category = PortfolioCategory::where('slug', $slug)->firstOrFail();
 
         // Mengembalikan view dengan data kategori
-        return view('portfolio_categories.show', compact('category'));
+        return view('admin.portfolio_categories.show', compact('category'));
     }
 
     public function edit($id)
     {
         $category = PortfolioCategory::findOrFail($id);
-        return view('portfolio_categories.edit', compact('category'));
+        return view('admin.portfolio_categories.edit', compact('category'));
     }
 
     public function update(Request $request, $id)
@@ -54,13 +60,13 @@ class PortfolioCategoryController extends Controller
 
         $category = PortfolioCategory::findOrFail($id);
         $category->update($request->all());
-        return redirect()->route('portfolio_categories.index')->with('success', 'Category updated successfully.');
+        return redirect()->route('admin.portfolio_categories.index')->with('success', 'Category updated successfully.');
     }
 
     public function destroy($id)
     {
         $category = PortfolioCategory::findOrFail($id);
         $category->delete();
-        return redirect()->route('portfolio_categories.index')->with('success', 'Category deleted successfully.');
+        return redirect()->route('admin.portfolio_categories.index')->with('success', 'Category deleted successfully.');
     }
 }

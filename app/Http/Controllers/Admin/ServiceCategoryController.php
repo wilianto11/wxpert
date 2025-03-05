@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\ServiceCategory;
+use App\Http\Controllers\Controller;
 
 class ServiceCategoryController extends Controller
 {
@@ -11,13 +12,13 @@ class ServiceCategoryController extends Controller
     public function index()
     {
         $categories = ServiceCategory::all();
-        return view('service-categories.index', compact('categories'));
+        return view('admin.service-categories.index', compact('categories'));
     }
 
     // Menampilkan form untuk membuat kategori baru
     public function create()
     {
-        return view('service-categories.create');
+        return view('admin.service-categories.create');
     }
 
     // Menyimpan kategori baru ke database
@@ -38,14 +39,14 @@ class ServiceCategoryController extends Controller
     public function show($id)
     {
         $category = ServiceCategory::findOrFail($id);
-        return view('service-categories.show', compact('category'));
+        return view('admin.service-categories.show', compact('category'));
     }
 
     // Menampilkan form untuk mengedit kategori
     public function edit($id)
     {
         $category = ServiceCategory::findOrFail($id);
-        return view('service-categories.edit', compact('category'));
+        return view('admin.service-categories.edit', compact('category'));
     }
 
     // Mengupdate kategori di database

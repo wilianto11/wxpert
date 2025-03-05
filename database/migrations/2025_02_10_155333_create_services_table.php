@@ -1,3 +1,4 @@
+-- Active: 1717222369058@@127.0.0.1@3306@db_wxpert_app
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->string('slug');
             $table->text('description');
             $table->decimal('price', 10, 2);
-            $table->string('image');
+            $table->json('features');
             $table->string('meta_title');
             $table->text('meta_description');
             $table->timestamps();

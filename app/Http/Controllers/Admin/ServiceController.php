@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Service;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ServiceCategory;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
@@ -15,7 +16,7 @@ class ServiceController extends Controller
     {
         $services = Service::with('category')->get();
         $categories = ServiceCategory::all();
-        return view('services.index', compact('services', 'categories'));
+        return view('admin.services.index', compact('services', 'categories'));
     }
 
     // Menyimpan layanan baru ke database
@@ -50,7 +51,7 @@ class ServiceController extends Controller
             'meta_description' => $request->meta_description,
         ]);
 
-        return redirect()->route('services.index')->with('success', 'Service added successfully.');
+        return redirect()->route('admin.services.index')->with('success', 'Service added successfully.');
     }
 
     // Mengupdate layanan
@@ -85,7 +86,7 @@ class ServiceController extends Controller
             'meta_description' => $request->meta_description,
         ]);
 
-        return redirect()->route('services.index')->with('success', 'Service updated successfully.');
+        return redirect()->route('admin.services.index')->with('success', 'Service updated successfully.');
     }
 
 
@@ -94,7 +95,7 @@ class ServiceController extends Controller
     {
         $service = Service::findOrFail($id);
         $service->delete();
-        return redirect()->route('services.index')->with('success', 'Service deleted successfully.');
+        return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully.');
     }
 
     // Menampilkan detail layanan berdasarkan slug

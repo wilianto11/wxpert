@@ -1,26 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Portfolio;
 use Illuminate\Http\Request;
 use App\Models\PortfolioCategory;
+use App\Http\Controllers\Controller;
 
 class PortfolioController extends Controller
 {
     // Menampilkan daftar portfolio
     public function index()
     {
-        $portfolios = Portfolio::all();  // Fetch all portfolios
+        $portfolios = Portfolio::paginate(5);
+
         $categories = PortfolioCategory::all();   // Fetch all categories
-        return view('portfolios.index', compact('portfolios', 'categories'));
+        return view('admin.portfolios.index', compact('portfolios', 'categories'));
     }
 
     // Menampilkan form tambah portfolio
     public function create()
     {
         $categories = PortfolioCategory::all();
-        return view('portfolios.create', compact('categories'));
+        return view('admin.portfolios.create', compact('categories'));
     }
 
     // Menyimpan portfolio baru
@@ -50,14 +52,14 @@ class PortfolioController extends Controller
             'meta_description' => $request->meta_description,
         ]);
 
-        return redirect()->route('portfolios.index')->with('success', 'Portfolio created successfully.');
+        return redirect()->route('admin.portfolios.index')->with('success', 'Portfolio created successfully.');
     }
 
     // Menampilkan form edit portfolio
     public function edit(Portfolio $portfolio)
     {
         $categories = PortfolioCategory::all();
-        return view('portfolios.edit', compact('portfolio', 'categories'));
+        return view('admin.portfolios.edit', compact('portfolio', 'categories'));
     }
 
     // Mengupdate portfolio
@@ -81,14 +83,14 @@ class PortfolioController extends Controller
 
         $portfolio->update($request->all());
 
-        return redirect()->route('portfolios.index')->with('success', 'Portfolio updated successfully.');
+        return redirect()->route('admin.portfolios.index')->with('success', 'Portfolio updated successfully.');
     }
 
     // Menghapus portfolio
     public function destroy(Portfolio $portfolio)
     {
         $portfolio->delete();
-        return redirect()->route('portfolios.index')->with('success', 'Portfolio deleted successfully.');
+        return redirect()->route('admin.portfolios.index')->with('success', 'Portfolio deleted successfully.');
     }
 
     // Menampilkan detail portfolio

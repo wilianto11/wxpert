@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use id;
 use App\Models\Blog;
 use Illuminate\Support\Str;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
@@ -16,7 +18,7 @@ class BlogController extends Controller
         $blogs = Blog::with('category', 'author')->latest()->get(); // Mengambil data blog dengan kategori dan penulis
         $categories = BlogCategory::all(); // Mengambil semua kategori
 
-        return view('blogs.index', compact('blogs', 'categories'));
+        return view('admin.blogs.index', compact('blogs', 'categories'));
     }
 
     public function create()
@@ -24,7 +26,7 @@ class BlogController extends Controller
         // Mengambil data kategori untuk dropdown
         $categories = BlogCategory::all();
 
-        return view('blogs.create', compact('categories'));
+        return view('admin.blogs.create', compact('categories'));
     }
 
     // Menyimpan blog baru
@@ -61,7 +63,7 @@ class BlogController extends Controller
             'meta_description' => $request->meta_description,
         ]);
 
-        return redirect()->route('blogs.index')->with('success', 'Blog berhasil ditambahkan');
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog berhasil ditambahkan');
     }
 
     // Memperbarui blog
@@ -105,7 +107,7 @@ class BlogController extends Controller
             'meta_description' => $request->meta_description,
         ]);
 
-        return redirect()->route('blogs.index')->with('success', 'Blog berhasil diperbarui');
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog berhasil diperbarui');
     }
 
     // Menghapus blog
@@ -119,14 +121,14 @@ class BlogController extends Controller
         // Hapus blog
         $blog->delete();
 
-        return redirect()->route('blogs.index')->with('success', 'Blog berhasil dihapus');
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog berhasil dihapus');
     }
 
 
     public function show($slug)
     {
         // Ambil blog berdasarkan slug
-        $blog = Blog::with('category', 'author')->where('slug', $slug)->firstOrFail();
+        $blog = Blog::with('admin.category', 'author')->where('slug', $slug)->firstOrFail();
 
         // Ambil semua kategori
         $categories = BlogCategory::all();

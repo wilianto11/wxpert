@@ -13,6 +13,11 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    <!--SwiperJS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -1251,11 +1256,10 @@
                 class="absolute top-0 left-0 z-50 flex flex-col items-center justify-between hidden w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative">
 
                 <a href="#features"
-                    class="mr-0 font-bold duration-100 md:mr-3 lg:mr-8 transition-color hover:text-pink-600">Features</a>
+                    class="mr-0 font-bold duration-100 md:mr-3 lg:mr-8 transition-color hover:text-pink-600">Portofolio</a>
                 <a href="#pricing"
-                    class="mr-0 font-bold duration-100 md:mr-3 lg:mr-8 transition-color hover:text-pink-600">Pricing</a>
-                <a href="#testimonials"
-                    class="font-bold duration-100 transition-color hover:text-pink-600">Testimonials</a>
+                    class="mr-0 font-bold duration-100 md:mr-3 lg:mr-8 transition-color hover:text-pink-600">Layanan</a>
+                <a href="#testimonials" class="font-bold duration-100 transition-color hover:text-pink-600">Blog</a>
 
                 @if (Route::has('login'))
                     <div class="flex flex-col block w-full font-medium border-t border-gray-200 md:hidden">
@@ -1353,10 +1357,12 @@
                 class="z-30 flex flex-col items-center w-full max-w-xl pt-48 text-center lg:items-start lg:w-1/2 lg:pt-20 xl:pt-40 lg:text-left">
                 <h1
                     class="relative mb-4 text-3xl font-black leading-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 sm:text-6xl xl:mb-8">
-                    Butuh Website Profesional yang Menarik & Powerfull?
+                    Bantu UMKM Go Digital dengan Website Profesional & Terjangkau!
                 </h1>
-                <p class="pr-0 mb-8 text-base text-gray-600 sm:text-lg xl:text-xl lg:pr-20">Tingkatkan bisnis dan
-                    personal branding Anda dengan website modern.</p>
+                <p class="pr-0 mb-8 text-base text-gray-600 sm:text-lg xl:text-xl lg:pr-20">Tingkatkan
+                    kredibilitas,
+                    jangkau lebih banyak pelanggan dan jualan 24/7 dengan website sendiri. Proses cepat, harga
+                    hemat, dan siap pakai!</p>
                 <div class="relative mb-8 w-full h-16">
                     <div class="text-5xl font-bold tracking-wide text-animate w-full h-full">
                         <span
@@ -1662,72 +1668,70 @@
     </section>
     <!-- fEATURE SECTION END -->
     <!-- Pricing Section -->
+    <!-- Pricing Section -->
     <div class="relative bg-gray-50 py-16 md:py-24 lg:py-32">
-        <div class="max-w-6xl mx-auto text-center">
+        <div class="max-w-5xl mx-auto text-center">
             <!-- Judul -->
             <p
-                class="text-2xl font-semibold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
-                Our Pricing
+                class="my-5 text-base font-medium tracking-tight uppercase bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Paket Layanan
             </p>
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mt-4">
-                Simple, Transparent Pricing for Everyone
+            <h2
+                class="text-4xl font-extrabold leading-10 tracking-tight bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 bg-clip-text text-transparent sm:text-5xl sm:leading-none md:text-6xl lg:text-5xl xl:text-6xl">
+                Transparent & Flexible Plans
             </h2>
-            <p class="mt-4 text-lg text-gray-600">Pilih paket terbaik untuk kebutuhan bisnis Anda.</p>
+            <p class="mt-4 text-lg text-gray-600">Pilih paket yang sesuai untuk bisnismu dan mulai go digital
+                sekarang!</p>
         </div>
 
         <!-- Pricing Cards -->
-        <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
-            @foreach ($services as $service)
-                <div
-                    class="relative group p-8 bg-white shadow-lg rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <!-- Header -->
-                    <div
-                        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
-                    </div>
-                    <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900">{{ $service->title }}</h3>
-                        <p class="mt-2 text-lg text-gray-600">{{ number_format($service->price, 2, ',', '.') }}
-                            IDR</p>
-                    </div>
+        <div class="mt-12 px-6 max-w-screen-xl mx-auto">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    @foreach ($services as $service)
+                        <div class="swiper-slide">
+                            <div
+                                class="relative p-8 bg-white shadow-md rounded-2xl border border-gray-200 transition duration-300 hover:shadow-xl">
+                                <!-- Header -->
+                                <h3 class="text-2xl font-semibold text-gray-900 text-center">{{ $service->title }}
+                                </h3>
+                                <p class="mt-2 text-lg text-indigo-600 text-center font-medium">
+                                    {{ number_format($service->price, 0, ',', '.') }} IDR
+                                </p>
 
-                    <!-- Features -->
-                    <ul class="mt-6 space-y-4 text-gray-700">
-                        <li class="flex items-center group">
-                            <svg class="w-6 h-6 text-green-500 mr-3 group-hover:scale-125 transition-transform duration-300"
-                                fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span class="group-hover:text-indigo-600 transition-colors duration-300">Super Fast
-                                Performance</span>
-                        </li>
-                        <li class="flex items-center group">
-                            <svg class="w-6 h-6 text-green-500 mr-3 group-hover:scale-125 transition-transform duration-300"
-                                fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span class="group-hover:text-indigo-600 transition-colors duration-300">User-Friendly
-                                Interface</span>
-                        </li>
-                        <li class="flex items-center group">
-                            <svg class="w-6 h-6 text-green-500 mr-3 group-hover:scale-125 transition-transform duration-300"
-                                fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span class="group-hover:text-indigo-600 transition-colors duration-300">24/7 Support &
-                                Updates</span>
-                        </li>
-                    </ul>
+                                <!-- Features -->
+                                <ul class="mt-6 space-y-3 text-gray-700">
+                                    @foreach (json_decode($service->features, true) as $feature)
+                                        <li class="flex items-center space-x-3 p-2">
+                                            <div
+                                                class="w-6 h-6 flex items-center justify-center bg-indigo-500 text-white rounded-full">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                    stroke-width="2" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M5 13l4 4L19 7"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="text-gray-800">{{ $feature }}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
 
-
-                    <!-- CTA Button -->
-                    <div class="mt-8">
-                        <a href="{{ Auth::check() ? route('services.show', $service->slug) : route('login') }}"
-                            class="block w-full px-6 py-4 text-lg font-semibold text-center text-white bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-lg shadow-lg hover:scale-105 transition duration-300">
-                            Select This Plan
-                        </a>
-                    </div>
+                                <!-- CTA Button -->
+                                <div class="mt-8">
+                                    <a href="{{ Auth::check() ? route('services.show', $service->slug) : route('login') }}"
+                                        class="block w-full px-6 py-3 text-lg font-medium text-center text-white bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                                        Choose Plan
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            @endforeach
+
+                <!-- Pagination Bullets -->
+                <div class="swiper-pagination"></div>
+            </div>
+
         </div>
     </div>
     <!-- End Pricing Section -->
@@ -1807,12 +1811,12 @@
 </main>
 
 <footer class="bg-gray-900 text-white py-6 px-3">
-    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+    <div class="container mx-auto flex flex-wrap flex-col md:flex-row items-center justify-between">
         <p class="text-sm flex items-center">
             <img src="{{ asset('assets/img/wxpert.png') }}" alt="Logo" class="h-5 w-5 mr-2 filter invert">
             &copy; 2025 WXPERT.XYZ. All rights reserved.
         </p>
-        <div class="flex space-x-4">
+        <div class="flex flex-wrap space-x-4">
             <svg class="h-8 mr-4 text-gray-500 duration-150 cursor-pointer fill-current transition-color hover:fill-black"
                 role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <title>GitHub</title>
@@ -1887,6 +1891,27 @@
             }
         });
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 16,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 3
+                }
+            },
+            grabCursor: true,
+            freeMode: true
+        });
+    });
 </script>
 
 </html>
